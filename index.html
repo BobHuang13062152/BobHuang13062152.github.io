@@ -7,10 +7,11 @@
     <style>
         /* --- 基礎設定 --- */
         :root {
-            --primary-color: #003366; /* 中央大學藍/深藍色 */
-            --accent-color: #e67e22;  /* 亮橘色作為強調 */
+            --primary-color: #003366; /* 中央大學藍 */
+            --accent-color: #e67e22;  /* 亮橘色 */
             --bg-light: #f9f9f9;
             --text-dark: #333;
+            --text-gray: #666;
         }
         body {
             font-family: "Helvetica Neue", Arial, "微軟正黑體", sans-serif;
@@ -20,6 +21,7 @@
             color: var(--text-dark);
         }
         a { text-decoration: none; color: inherit; }
+        ul { list-style: none; padding: 0; }
         
         /* --- 導覽列 --- */
         header {
@@ -45,25 +47,24 @@
         }
         .nav-links a:hover { color: var(--accent-color); }
 
-        /* --- Hero 區塊 (大標題) --- */
+        /* --- Hero 區塊 --- */
         .hero {
-            /* 這裡可以換成實驗室的大合照或校園風景 */
             background: linear-gradient(rgba(0, 51, 102, 0.85), rgba(0, 51, 102, 0.85)), url('https://via.placeholder.com/1920x600?text=NCU+Campus');
             background-size: cover;
             background-position: center;
             color: #fff;
             text-align: center;
-            padding: 120px 20px;
+            padding: 100px 20px;
         }
         .hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
-        .hero p { font-size: 1.1rem; opacity: 0.9; max-width: 800px; margin: 0 auto; }
+        .hero p { font-size: 1.1rem; opacity: 0.9; }
 
         /* --- 通用區塊設定 --- */
         section { padding: 60px 20px; max-width: 1100px; margin: 0 auto; }
         h2 {
             text-align: center;
             font-size: 2rem;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             color: var(--primary-color);
             position: relative;
         }
@@ -76,14 +77,50 @@
             margin: 10px auto 0;
         }
 
-        /* --- 關於我們 --- */
-        .about-text {
-            text-align: justify;
-            font-size: 1.1rem;
-            line-height: 1.8;
+        /* --- 教授介紹區塊 (Director) --- */
+        .director-container {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        .director-img {
+            flex: 0 0 300px;
+            height: 100%;
+            min-height: 350px;
+            object-fit: cover;
+            object-position: top; /* 確保大頭照位置正確 */
+        }
+        .director-info {
+            padding: 40px;
+            flex: 1;
+        }
+        .director-info h3 {
+            margin-top: 0;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        .director-title {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .director-details li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .director-details strong {
+            min-width: 100px;
+            color: #555;
         }
 
-        /* --- 研究領域 (列表式卡片) --- */
+        /* --- 研究領域 --- */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -98,22 +135,18 @@
         }
         .card:hover { transform: translateY(-5px); box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
         .card h3 { margin-top: 0; color: var(--primary-color); }
-        .card p { margin-bottom: 0; font-size: 0.95rem; color: #555; }
 
-        /* --- 聯絡資訊與地圖 (雙欄) --- */
+        /* --- 聯絡資訊 --- */
         .contact-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
-            align-items: start;
         }
-        .contact-info p { margin: 10px 0; font-size: 1.1rem; }
         .map-container iframe {
             width: 100%;
             height: 350px;
             border: 0;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         /* --- 頁尾 --- */
@@ -123,16 +156,15 @@
             text-align: center;
             padding: 30px 20px;
             margin-top: 60px;
-            font-size: 0.9rem;
         }
-        
-        /* --- 手機版調整 --- */
+
+        /* --- RWD 手機版調整 --- */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 1.8rem; }
+            .director-container { flex-direction: column; }
+            .director-img { width: 100%; height: auto; max-height: 400px; }
+            .director-info { padding: 25px; }
             .contact-container { grid-template-columns: 1fr; }
             nav { flex-direction: column; gap: 10px; }
-            .nav-links { margin-top: 10px; }
-            .nav-links a { margin: 0 10px; display: inline-block; }
         }
     </style>
 </head>
@@ -140,9 +172,10 @@
 
     <header>
         <nav>
-            <div class="logo">WIDM Lab @ NCU</div>
+            <div class="logo">WIDM Lab</div>
             <div class="nav-links">
                 <a href="#about">About</a>
+                <a href="#director">Director</a>
                 <a href="#research">Research</a>
                 <a href="#contact">Contact</a>
             </div>
@@ -150,98 +183,102 @@
     </header>
 
     <div class="hero">
-        <h1>Web Intelligence and Data Mining Laboratory</h1>
+        <h1>Web Intelligence and Data Mining Lab</h1>
         <p>National Central University</p>
-        <br>
-        <p>Web 智慧與資料探勘實驗室</p>
     </div>
 
     <section id="about">
         <h2>About Us</h2>
-        <div class="about-text">
-            <p>
-                The Web Intelligence and Data Mining Laboratory (WIDM Lab) at National Central University is dedicated to researching and developing intelligent systems to address complex real-world problems. 
-            </p>
-            <p>
-                Our research spans Web information extraction, machine learning, data mining, conversational agents, and knowledge graphs, with applications in web intelligence, information integration, legal AI, human-computer interaction, and educational systems.
-            </p>
+        <p style="text-align: justify; font-size: 1.1rem;">
+            The Web Intelligence and Data Mining Laboratory (WIDM Lab) at National Central University is dedicated to researching and developing intelligent systems to address complex real-world problems. Our research spans Web information extraction, machine learning, data mining, conversational agents, and knowledge graphs.
+        </p>
+    </section>
+
+    <section id="director">
+        <h2>Laboratory Director</h2>
+        <div class="director-container">
+            <img src="director.png" alt="Prof. Chang, Chia-Hui" class="director-img">
+            
+            <div class="director-info">
+                <h3>Chang, Chia-Hui (張嘉惠)</h3>
+                <span class="director-title">Professor, Dept. of CSIE, National Central University</span>
+                
+                <ul class="director-details">
+                    <li>
+                        <strong>Education:</strong> 
+                        <span>Ph.D., Dept. of Computer Science & Information Engineering, National Taiwan University (1999)</span>
+                    </li>
+                    <li>
+                        <strong>Office:</strong> 
+                        <span>Engineering Building 5, B302</span>
+                    </li>
+                    <li>
+                        <strong>Tel:</strong> 
+                        <span>+886-3-422-7151 ext. 35302</span>
+                    </li>
+                    <li>
+                        <strong>Email:</strong> 
+                        <span>chia@csie.ncu.edu.tw</span>
+                    </li>
+                </ul>
+
+                <p style="margin-top: 20px; font-size: 0.95rem; color: #666;">
+                    <strong>Experience:</strong><br>
+                    Visiting Faculty at Carnegie Mellon University (2007-2008)<br>
+                    Postdoc at Academia Sinica (1999)
+                </p>
+            </div>
         </div>
     </section>
 
     <section id="research" style="background-color: var(--bg-light);">
         <h2>Research Interests</h2>
         <div class="grid-container">
-            
             <div class="card">
                 <h3>Agentic AI & Automation</h3>
                 <p>Agentic AI, GUI Automation</p>
             </div>
-
             <div class="card">
                 <h3>Legal AI</h3>
-                <p>Legal Judgement Predication, Collision Care Guide chatbot, Legigation Visualization</p>
+                <p>Legal Judgement Predication, Collision Care Guide chatbot</p>
             </div>
-
             <div class="card">
                 <h3>Web Intelligence</h3>
-                <p>Mobile Web Creator, Opinion mining for social study, Meetup Event Extraction, Point-of-Interest Extraction</p>
+                <p>Mobile Web Creator, Opinion mining, POI Extraction</p>
             </div>
-
             <div class="card">
                 <h3>AI for Education</h3>
                 <p>EduACT, Storybot</p>
             </div>
-
-            <div class="card">
-                <h3>Smart Campus</h3>
-                <p>NCUFree, WiFiPass, Mobile Advertising</p>
-            </div>
-
             <div class="card">
                 <h3>Information Extraction</h3>
-                <p>Web Information Extraction and Text Mining, Web data extraction (IEPAD, FiVaTech, Data API Creator)</p>
+                <p>Web Information Extraction, IEPAD, FiVaTech</p>
             </div>
-
             <div class="card">
                 <h3>Data Mining</h3>
                 <p>Periodic pattern mining</p>
             </div>
-
         </div>
     </section>
 
     <section id="contact">
         <h2>Contact Us</h2>
         <div class="contact-container">
-            
-            <div class="contact-info">
-                <h3>Web 智慧與資料探勘實驗室</h3>
-                <p><strong>📍 地址 Address:</strong><br>
+            <div>
+                <h3>WIDM Lab</h3>
+                <p><strong>Address:</strong><br>
                 (320317) 桃園市中壢區中大路 300 號<br>
                 工程五館三樓 B317-1</p>
-                
-                <p><strong>📞 電話 Phone:</strong><br>
-                886-3-422-7151 #35348</p>
-                
-                <p style="margin-top: 20px; color: #666; font-size: 0.9rem;">
-                    Engineering Building 5, 3F, Room B317-1<br>
-                    National Central University
-                </p>
+                <p><strong>Phone:</strong> 886-3-422-7151 #35348</p>
             </div>
-
             <div class="map-container">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3617.249035945196!2d121.19236731168578!3d24.96924844128526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346823c1ec904dcb%3A0xcdc129d4455ce58!2z5ZyL56uL5Lit5aSu5aSn5a245bel56iL5LqU6aSo!5e0!3m2!1szh-TW!2stw!4v1715671234567!5m2!1szh-TW!2stw" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3617.249035945196!2d121.19236731168578!3d24.96924844128526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346823c1ec904dcb%3A0xcdc129d4455ce58!2z5ZyL56uL5Lit5aSu5aSn5a245bel56iL5LqU6aSo!5e0!3m2!1szh-TW!2stw!4v1715671234567!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2024 Web Intelligence and Data Mining Laboratory, National Central University.</p>
+        <p>© 2024 Web Intelligence and Data Mining Laboratory, National Central University.</p>
     </footer>
 
 </body>
