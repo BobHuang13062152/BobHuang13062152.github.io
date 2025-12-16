@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>實驗室名稱 - Laboratory Website</title>
+    <style>
+        /* --- 基礎設定 --- */
+        :root {
+            --primary-color: #2c3e50; /* 主色調 (深藍) */
+            --accent-color: #3498db;  /* 強調色 (亮藍) */
+            --bg-light: #f4f4f4;
+            --text-dark: #333;
+        }
+        body {
+            font-family: "Helvetica Neue", Arial, "微軟正黑體", sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+        a { text-decoration: none; color: inherit; }
+        
+        /* --- 導覽列 --- */
+        header {
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); }
+        .nav-links a {
+            margin-left: 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--accent-color); }
+
+        /* --- Hero 區塊 (大標題) --- */
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('https://via.placeholder.com/1920x600?text=Lab+Background'); /* 背景圖 */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        .hero h1 { font-size: 3rem; margin-bottom: 10px; }
+        .hero p { font-size: 1.2rem; opacity: 0.9; }
+
+        /* --- 通用區塊設定 --- */
+        section { padding: 60px 20px; max-width: 1000px; margin: 0 auto; }
+        h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            position: relative;
+        }
+        h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-color);
+            margin: 10px auto 0;
+        }
+
+        /* --- 研究領域 (卡片式) --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .card-icon { font-size: 2rem; margin-bottom: 10px; color: var(--accent-color); }
+
+        /* --- 成員介紹 --- */
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        .member-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid var(--bg-light);
+        }
+
+        /* --- 頁尾 --- */
+        footer {
+            background: var(--primary-color);
+            color: #fff;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 40px;
+        }
+        
+        /* --- 手機版調整 --- */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2rem; }
+            nav { flex-direction: column; }
+            .nav-links { margin-top: 15px; }
+            .nav-links a { margin: 0 10px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">[你的實驗室名稱] Lab</div>
+            <div class="nav-links">
+                <a href="#about">關於我們</a>
+                <a href="#research">研究領域</a>
+                <a href="#members">成員介紹</a>
+                <a href="#contact">聯絡方式</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Welcome to [Lab Name]</h1>
+        <p>致力於人工智慧與人機互動的前瞻研究</p>
+    </div>
+
+    <section id="about">
+        <h2>關於實驗室 (About Us)</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto;">
+            歡迎來到我們的實驗室網站。我們專注於探索最新的科技趨勢，結合跨領域的知識，解決現實世界的問題。
+            <br><br>
+            這裡可以放一段簡單的介紹文案，說明實驗室的願景、主持人是誰，以及你們的主要目標。
+        </p>
+    </section>
+
+    <section id="research" style="background-color: var(--bg-light);">
+        <h2>研究領域 (Research)</h2>
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-icon">🤖</div>
+                <h3>人工智慧</h3>
+                <p>研究深度學習演算法與應用。</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">☁️</div>
+                <h3>雲端計算</h3>
+                <p>分散式系統與高效能運算架構。</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔐</div>
+                <h3>資訊安全</h3>
+                <p>網路攻防模擬與加密技術研究。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="members">
+        <h2>實驗室成員 (Members)</h2>
+        <div class="members-grid">
+            <div>
+                <img src="https://via.placeholder.com/150" alt="教授照片" class="member-img">
+                <h3>王大明 教授</h3>
+                <p>指導教授</p>
+            </div>
+            <div>
+                <img src="https://via.placeholder.com/150" alt="學生照片" class="member-img">
+                <h3>陳小美</h3>
+                <p>博士生</p>
+            </div>
+            <div>
+                <img src="https://via.placeholder.com/150" alt="學生照片" class="member-img">
+                <h3>林小華</h3>
+                <p>碩士生</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <h3>聯絡我們 (Contact)</h3>
+        <p>📍 地址：台灣某某大學 工程館 305 室</p>
+        <p>📧 Email：contact@lab-example.com</p>
+        <p>© 2024 [Lab Name]. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
